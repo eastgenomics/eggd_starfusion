@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Output each line as it is executed (-x) and don't stop if any non zero exit codes are seen (+e)
-set -x +e
+# Output each line as it is executed (-x)
+set -x 
 
 mark-section "download inputs"
 
@@ -17,8 +17,8 @@ mkdir -p out/starfusion_outputs
 
 mark-section "setup docker"
 
-# download starfusion docker
-docker pull trinityctat/starfusion
+# download starfusion docker this is August 2020 v1.9.1
+docker pull trinityctat/starfusion:1.9.1
 
 mark-section "run starfusion"
 
