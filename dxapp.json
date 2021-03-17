@@ -1,5 +1,5 @@
 {
-  "name": "starfusion_v1.0.0",
+  "name": "starfusion_v1.0.0(v1.10)",
   "title": "STAR-Fusion v1.0.0",
   "summary": "STAR-Fusion docker",
   "properties": {
@@ -40,6 +40,11 @@
     }
   ],
   "runSpec": {
+    "timeoutPolicy": {
+      "*": {
+        "hours": 6
+      }
+    },
     "release": "16.04",
     "file": "src/code.sh",
     "version": "0",

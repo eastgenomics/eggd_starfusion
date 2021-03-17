@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Output each line as it is executed (-x) and don't stop if any non zero exit codes are seen (+e)
-set -x +e
+# Output each line as it is executed (-x) 
+set -x 
 
 mark-section "download inputs"
 
@@ -18,7 +18,7 @@ mkdir -p out/starfusion_outputs
 mark-section "setup docker"
 
 # download starfusion docker
-docker pull trinityctat/starfusion
+docker pull trinityctat/starfusion:1.10.0
 
 mark-section "run starfusion"
 
@@ -27,7 +27,7 @@ docker run -v `pwd`:/data --rm trinityctat/starfusion \
     /usr/local/src/STAR-Fusion/STAR-Fusion \
     --left_fq /data/R1.fastq.gz \
     --right_fq /data/R2.fastq.gz \
-    --genome_lib_dir /data/GRCh37_gencode_v19_CTAT_lib_Apr032020.plug-n-play/ctat_genome_lib_build_dir \
+    --genome_lib_dir /data/GRCh37_gencode_v19_CTAT_lib_Mar012021.plug-n-play/ctat_genome_lib_build_dir \
     -O /data/out/starfusion_outputs \
     --FusionInspector validate \
     --examine_coding_effect \
