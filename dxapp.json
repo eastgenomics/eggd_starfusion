@@ -42,7 +42,7 @@
   "runSpec": {
     "timeoutPolicy": {
       "*": {
-        "hours": 6
+        "hours": 8
       }
     },
     "release": "16.04",
