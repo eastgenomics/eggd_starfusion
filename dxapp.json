@@ -45,7 +45,7 @@
         "hours": 8
       }
     },
-    "release": "16.04",
+    "release": "20.04",
     "file": "src/code.sh",
     "version": "0",
     "interpreter": "bash",
