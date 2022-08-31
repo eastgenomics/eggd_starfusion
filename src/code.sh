@@ -4,15 +4,18 @@
 
 
 main() {
+    set -exo pipefail #if any part goes wrong, job will fail
 
-    echo "Value of bam: '$bam'"
+    dx-download-all-inputs # download inputs from json
 
-    dx download "$bam" -o bam
+    # install sentieon, run license setup script
+    tar xvzf /home/dnanexus/in/sentieon_tar/sentieon-genomics-*.tar.gz -C /usr/local
+    tar xvzf /home/dnanexus/in/genome_indexes/*.tar.gz -C /home/dnanexus/genomeDir #transcript data from that release of gencode
+    tar xvzf /home/dnanexus/in/reference_genome/*tar.gz -C /home/dnanexus/reference_genome
 
-     # run license setup script
     source /home/dnanexus/license_setup.sh
     export SENTIEON_INSTALL_DIR=/usr/local/sentieon-genomics-*
-    SENTIEON_BIN_DIR=$(echo $SENTIEON_INSTALL_DIR/bin)
+    SENTIEON_BIN_DIR="$SENTIEON_INSTALL_DIR/bin"
     export PATH="$SENTIEON_BIN_DIR:$PATH"
 
     candidates=$(dx upload candidates --brief)

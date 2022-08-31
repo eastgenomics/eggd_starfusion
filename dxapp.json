@@ -14,7 +14,15 @@
         "*"
       ],
       "help": ""
-    }
+    },
+    {
+      "name": "sentieon_tar",
+      "label": "sentieon_tar",
+      "help": "tarballed sentieon download",
+      "class": "file",
+      "patterns": ["sentieon-genomics-*.tar.gz"],
+      "optional": false
+      }
   ],
   "outputSpec": [
     {
