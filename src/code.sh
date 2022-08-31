@@ -9,6 +9,12 @@ main() {
 
     dx download "$bam" -o bam
 
+     # run license setup script
+    source /home/dnanexus/license_setup.sh
+    export SENTIEON_INSTALL_DIR=/usr/local/sentieon-genomics-*
+    SENTIEON_BIN_DIR=$(echo $SENTIEON_INSTALL_DIR/bin)
+    export PATH="$SENTIEON_BIN_DIR:$PATH"
+
     candidates=$(dx upload candidates --brief)
 
     dx-jobutil-add-output candidates "$candidates" --class=file
