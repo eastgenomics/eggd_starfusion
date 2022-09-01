@@ -6,8 +6,8 @@
   "version": "1.0.0",
   "inputSpec": [
     {
-      "name": "bam",
-      "label": "BAM file",
+      "name": "junctions",
+      "label": "STAR-output junctions file",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -26,9 +26,9 @@
   ],
   "outputSpec": [
     {
-      "name": "candidates",
-      "label": "candidates",
-      "class": "file",
+      "name": "star_fusion_outdir",
+      "label": "star_fusion_outdir",
+      "class": "string",
       "patterns": [
         "*"
       ],

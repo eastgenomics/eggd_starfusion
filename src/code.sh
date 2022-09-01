@@ -4,11 +4,12 @@
 
 
 main() {
-    set -exo pipefail #if any part goes wrong, job will fail
+    set -e -x -v -o pipefail #if any part goes wrong, job will fail
 
-    dx-download-all-inputs # download inputs from json
+    mark-section "downloading inputs"
+    dx-download-all-inputs
 
-    # install sentieon, run license setup script
+    mark-section "install sentieon, run license setup script"
     tar xvzf /home/dnanexus/in/sentieon_tar/sentieon-genomics-*.tar.gz -C /usr/local
     tar xvzf /home/dnanexus/in/genome_indexes/*.tar.gz -C /home/dnanexus/genomeDir #transcript data from that release of gencode
     tar xvzf /home/dnanexus/in/reference_genome/*tar.gz -C /home/dnanexus/reference_genome
@@ -18,7 +19,16 @@ main() {
     SENTIEON_BIN_DIR="$SENTIEON_INSTALL_DIR/bin"
     export PATH="$SENTIEON_BIN_DIR:$PATH"
 
-    candidates=$(dx upload candidates --brief)
+    mark-section "set up parameters and run STAR-Fusion"
+    NUMBER_THREADS=4
+    export STAR_REFERENCE=/home/dnanexus/genomeDir/*.plug-n-play/ctat_genome_lib_build_dir/ref_genome.fa.star.idx/ # Reference transcripts
+    
+    senteion STAR-Fusion \
+    --genome_lib_dir "$STAR_REFERENCE" \
+    -J "$junctions" \
+    --output_dir ${star_fusion_outdir}
 
-    dx-jobutil-add-output candidates "$candidates" --class=file
+    mark-section "Preparing the outputs for upload"
+	mv ~/"${star_fusion_outdir}" ~/out/"${star_fusion_outdir}"
+    mark-success
 }
