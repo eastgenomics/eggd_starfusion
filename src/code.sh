@@ -11,8 +11,6 @@ main() {
 
     mark-section "install sentieon, run license setup script"
     tar xvzf /home/dnanexus/in/sentieon_tar/sentieon-genomics-*.tar.gz -C /usr/local
-    tar xvzf /home/dnanexus/in/genome_indexes/*.tar.gz -C /home/dnanexus/genomeDir #transcript data from that release of gencode
-    tar xvzf /home/dnanexus/in/reference_genome/*tar.gz -C /home/dnanexus/reference_genome
 
     source /home/dnanexus/license_setup.sh
     export SENTIEON_INSTALL_DIR=/usr/local/sentieon-genomics-*
@@ -21,14 +19,17 @@ main() {
 
     mark-section "set up parameters and run STAR-Fusion"
     NUMBER_THREADS=4
-    export STAR_REFERENCE=/home/dnanexus/genomeDir/*.plug-n-play/ctat_genome_lib_build_dir/ref_genome.fa.star.idx/ # Reference transcripts
-    
+    # Reference transcripts
+    export STAR_REFERENCE=/home/dnanexus/genomeDir/*.plug-n-play/ctat_genome_lib_build_dir/ref_genome.fa.star.idx/
+
+
     senteion STAR-Fusion \
-    --genome_lib_dir "$STAR_REFERENCE" \
     -J "$junctions" \
-    --output_dir ${star_fusion_outdir}
+    --genome_lib_dir "$STAR_REFERENCE" \
+    --output_dir "$outdir"
+    
 
     mark-section "Preparing the outputs for upload"
-	mv ~/"${star_fusion_outdir}" ~/out/"${star_fusion_outdir}"
+	mv ~/"$outdir" ~/out/"$outdir"
     mark-success
 }

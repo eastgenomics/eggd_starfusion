@@ -26,8 +26,8 @@
   ],
   "outputSpec": [
     {
-      "name": "star_fusion_outdir",
-      "label": "star_fusion_outdir",
+      "name": "outdir",
+      "label": "outdir",
       "class": "string",
       "patterns": [
         "*"
