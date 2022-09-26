@@ -16,6 +16,14 @@
       "help": ""
     },
     {
+      "name": "starfusion_tar",
+      "label": "starfusion_tar",
+      "help": "tarballed STAR-Fusion download",
+      "class": "file",
+      "patterns": ["*.tar.gz"],
+      "optional": false
+    },
+    {
       "name": "sentieon_tar",
       "label": "sentieon_tar",
       "help": "tarballed sentieon download",

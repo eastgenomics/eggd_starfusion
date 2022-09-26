@@ -9,38 +9,34 @@ main() {
     mark-section "downloading inputs"
     dx-download-all-inputs
 
-    mark-section "install sentieon, run license setup script"
+    mark-section "install Senteion for the 'plug n play' files"
     tar xvzf /home/dnanexus/in/sentieon_tar/sentieon-genomics-*.tar.gz -C /usr/local
 
     source /home/dnanexus/license_setup.sh
 
     export SENTIEON_INSTALL_DIR=/usr/local/sentieon-genomics-*
+
+
+    mark-section "install Star-Fusion"
+    tar xvzf /home/dnanexus/in/starfusion_tar/sentieon-genomics-*.tar.gz -C /usr/local
+
+    export STARFUSION_INSTALL_DIR=/usr/local/starfusion*
+    STARFUSION_BIN_DIR=$(echo $STARFUSION_INSTALL_DIR/bin)
     
-    SENTIEON_BIN_DIR=$(echo $SENTIEON_INSTALL_DIR/bin)
-    
-    export PATH="$SENTIEON_BIN_DIR:$PATH"
+    export PATH="$STARFUSION_BIN_DIR:$PATH"
 
 
     mark-section "set up Star-fusion parameters and paths"
     cd /home/dnanexus
-    # NUMBER_THREADS needs the number of cores on the server node
-    # This can be extracted from the DNAnexus instance type
-    INSTANCE=$(dx describe --json $DX_JOB_ID | jq -r '.instanceType')  # Extract instance type
-    NUMBER_THREADS=${INSTANCE##*_x}
     
     # Reference transcripts
     export STAR_REFERENCE=/home/dnanexus/genomeDir/*.plug-n-play/ctat_genome_lib_build_dir/ref_genome.fa.star.idx/
 
-    mark-section "checking the available args"
-    sentieon STAR -h
-
     mark-section "run STAR-fusion"
-    sentieon STAR-Fusion \
+    STAR-fusion \
     -J "$junctions" \
     --genome_lib_dir "$STAR_REFERENCE" \
-    --output_dir "$outdir" \
-    --runThreadN ${NUMBER_THREADS}
-    
+    --output_dir "$outdir"     
 
     mark-section "Preparing the outputs for upload"
 	mv ~/"$outdir" ~/out/"$outdir"
