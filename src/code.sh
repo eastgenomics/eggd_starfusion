@@ -13,9 +13,13 @@ main() {
     tar xvzf /home/dnanexus/in/sentieon_tar/sentieon-genomics-*.tar.gz -C /usr/local
 
     source /home/dnanexus/license_setup.sh
+
     export SENTIEON_INSTALL_DIR=/usr/local/sentieon-genomics-*
+    
     SENTIEON_BIN_DIR=$(echo $SENTIEON_INSTALL_DIR/bin)
+    
     export PATH="$SENTIEON_BIN_DIR:$PATH"
+
 
     mark-section "set up Star-fusion parameters and paths"
     cd /home/dnanexus
@@ -26,6 +30,9 @@ main() {
     
     # Reference transcripts
     export STAR_REFERENCE=/home/dnanexus/genomeDir/*.plug-n-play/ctat_genome_lib_build_dir/ref_genome.fa.star.idx/
+
+    mark-section "checking the available args"
+    sentieon STAR -h
 
     mark-section "run STAR-fusion"
     sentieon STAR-Fusion \
