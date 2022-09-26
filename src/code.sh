@@ -17,12 +17,12 @@ main() {
     SENTIEON_BIN_DIR="$SENTIEON_INSTALL_DIR/bin"
     export PATH="$SENTIEON_BIN_DIR:$PATH"
 
-    mark-section "set up parameters and run STAR-Fusion"
+    mark-section "set up Star-fusion parameters and paths"
     NUMBER_THREADS=4
     # Reference transcripts
     export STAR_REFERENCE=/home/dnanexus/genomeDir/*.plug-n-play/ctat_genome_lib_build_dir/ref_genome.fa.star.idx/
 
-
+    mark-section "run STAR-fusion"
     sentieon STAR-Fusion \
     -J "$junctions" \
     --genome_lib_dir "$STAR_REFERENCE" \
