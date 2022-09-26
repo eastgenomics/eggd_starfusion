@@ -14,11 +14,16 @@ main() {
 
     source /home/dnanexus/license_setup.sh
     export SENTIEON_INSTALL_DIR=/usr/local/sentieon-genomics-*
-    SENTIEON_BIN_DIR="$SENTIEON_INSTALL_DIR/bin"
+    SENTIEON_BIN_DIR=$(echo $SENTIEON_INSTALL_DIR/bin)
     export PATH="$SENTIEON_BIN_DIR:$PATH"
 
     mark-section "set up Star-fusion parameters and paths"
-    NUMBER_THREADS=4
+    cd /home/dnanexus
+    # NUMBER_THREADS needs the number of cores on the server node
+    # This can be extracted from the DNAnexus instance type
+    INSTANCE=$(dx describe --json $DX_JOB_ID | jq -r '.instanceType')  # Extract instance type
+    NUMBER_THREADS=${INSTANCE##*_x}
+    
     # Reference transcripts
     export STAR_REFERENCE=/home/dnanexus/genomeDir/*.plug-n-play/ctat_genome_lib_build_dir/ref_genome.fa.star.idx/
 
@@ -26,7 +31,8 @@ main() {
     sentieon STAR-Fusion \
     -J "$junctions" \
     --genome_lib_dir "$STAR_REFERENCE" \
-    --output_dir "$outdir"
+    --output_dir "$outdir" \
+    --runThreadN ${NUMBER_THREADS}
     
 
     mark-section "Preparing the outputs for upload"
