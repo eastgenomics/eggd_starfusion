@@ -23,7 +23,7 @@ main() {
     export STAR_REFERENCE=/home/dnanexus/genomeDir/*.plug-n-play/ctat_genome_lib_build_dir/ref_genome.fa.star.idx/
 
 
-    senteion STAR-Fusion \
+    sentieon STAR-Fusion \
     -J "$junctions" \
     --genome_lib_dir "$STAR_REFERENCE" \
     --output_dir "$outdir"
