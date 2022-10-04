@@ -20,7 +20,6 @@
       "label": "sf_docker",
       "help": "File ID of Starfusion Docker image in DNA Nexus",
       "class": "file",
-      "patterns": "*",
       "optional": false
     },
     {
