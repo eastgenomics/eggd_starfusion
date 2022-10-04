@@ -51,10 +51,7 @@
     "distribution": "Ubuntu"
   },
   "access": {
-    "allProjects": "UPLOAD",
-    "network": [
-      "*"
-    ]
+    "allProjects": "UPLOAD"
   },
   "ignoreReuse": false,
   "regionalOptions": {
