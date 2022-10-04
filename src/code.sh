@@ -6,6 +6,7 @@ mark-section "download inputs"
 dx-download-all-inputs
 
 # download genome resources and Docker, decompress
+mkdir /home/dnanexus/genomeDir
 tar xvzf /home/dnanexus/in/genome_lib/*.tar.gz -C /home/dnanexus/genomeDir #transcript data from that release of gencode
 tar xvzf /home/dnanexus/in/sf_docker/starfusion_*.tar.gz
 
