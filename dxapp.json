@@ -1,26 +1,26 @@
 {
-  "name": "starfusion_v1.0.0(1.9)",
+  "name": "starfusion_v1.11.1",
   "title": "STAR-Fusion v1.0.0",
-  "summary": "STAR-Fusion docker",
+  "summary": "STAR-Fusion app which runs the official Docker",
   "properties": {
     "github release": "pending"
   },
   "dxapi": "1.0.0",
   "inputSpec": [
     {
-      "name": "left_fq",
-      "label": "left_fq",
-      "help": "gzipped fastq for R1",
+      "name": "junction",
+      "label": "junction",
+      "help": "Chimeric junction file, produced by STAR-Aligner",
       "class": "file",
-      "patterns": ["*.fastq.gz"],
+      "patterns": ["*Chimeric.out.junction"],
       "optional": false
     },
     {
-      "name": "right_fq",
-      "label": "right_fq",
-      "help": "gzipped fastq for R2",
+      "name": "sf_docker",
+      "label": "sf_docker",
+      "help": "File ID of Starfusion Docker image in DNA Nexus",
       "class": "file",
-      "patterns": ["*.fastq.gz"],
+      "patterns": "*",
       "optional": false
     },
     {
