@@ -4,12 +4,13 @@
 Runs the STAR-Fusion docker image
 
 ## What inputs are required for this app to run?
-* Pair of gzipped fastq's
+* A 'Chimeric.out.junction' file, produced by STAR-Aligner
 * STAR genome resource - from https://data.broadinstitute.org/Trinity/CTAT_RESOURCE_LIB/
+* The DNA Nexus file ID of a saved STAR-Fusion Docker image
 
 ## How does this app work?
 * Downloads and unzips/untars the STAR genome resource; downloads fastq's
-* Runs the latest STAR-Fusion docker using default settings
+* Runs the saved STAR-Fusion docker using default settings
 * Production versions of this app will need to point to docker image on DNAnexus to ensure that the same version is run each time
 
 
