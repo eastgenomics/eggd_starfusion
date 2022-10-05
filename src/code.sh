@@ -3,7 +3,7 @@
 set -exo pipefail #if any part goes wrong, job will fail
 
 mark-section "download inputs"
-dx cat "$junction" | tar zxf -
+dx download "$junction"
 dx cat "$genome_lib" | tar zxf -
 
 # find the plug-n-play resources
