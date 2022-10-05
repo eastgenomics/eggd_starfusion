@@ -5,10 +5,9 @@ set -exo pipefail #if any part goes wrong, job will fail
 mark-section "download inputs"
 dx-download-all-inputs
 
-# download genome resources and Docker, decompress. Try to unzip only STAR  reference transcripts from the genome_lib
+# download genome resources and Docker, decompress
 mkdir /home/dnanexus/genomeDir
-tar xvzf /home/dnanexus/in/genome_lib/*.plug-n-play/ctat_genome_lib_build_dir/ref_genome.fa.star.idx/*.tar.gz \
--C /home/dnanexus/genomeDir
+tar xvzf /home/dnanexus/in/genome_lib/*.tar.gz -C /home/dnanexus/genomeDir
 export STAR_REFERENCE=/home/dnanexus/genomeDir/ref_genome.fa.star.idx/
 tar xvzf /home/dnanexus/in/sf_docker/starfusion_*.tar.gz
 export DOCKER_IMAGE="${/home/dnanexus/in/sf_docker/starfusion_*}"
