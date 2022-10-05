@@ -4,7 +4,8 @@ set -exo pipefail #if any part goes wrong, job will fail
 
 mark-section "download inputs"
 dx-download-all-inputs
-tar xvzf /home/dnanexus/in/genome_lib/*.tar.gz
+tar xf /home/dnanexus/in/genome_lib/*.tar.gz -C /home/dnanexus/
+
 
 # find the plug-n-play resources
 lib_dir=$(find . -type d -name "GR*plug-n-play")
@@ -19,12 +20,12 @@ mkdir -p out/starfusion_outputs
 
 mark-section "run starfusion"
 
-docker run -v "$(pwd)":"$(pwd)" --rm \
+docker run -v "$(pwd)":/data --rm \
     "${DOCKER_IMAGE_ID}" \
     STAR-Fusion \
-    -J "/home/dnanexus/in/junction/*Chimeric.out.junction" \
-    --genome_lib_dir "${lib_dir}/ctat_genome_lib_build_dir" \
-    --output_dir "/home/dnanexus/out/starfusion_outputs"
+    -J "/data/in/junction/*Chimeric.out.junction" \
+    --genome_lib_dir "/data/${lib_dir}/ctat_genome_lib_build_dir" \
+    --output_dir "/data/out/starfusion_outputs"
     # --examine_coding_effect \
     # --denovo_reconstruct
 
