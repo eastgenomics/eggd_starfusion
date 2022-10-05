@@ -11,7 +11,7 @@ tar xvzf /home/dnanexus/in/genome_lib/*.plug-n-play/ctat_genome_lib_build_dir/re
 -C /home/dnanexus/genomeDir
 export STAR_REFERENCE=/home/dnanexus/genomeDir/ref_genome.fa.star.idx/
 tar xvzf /home/dnanexus/in/sf_docker/starfusion_*.tar.gz
-export DOCKER_IMAGE=/home/dnanexus/in/sf_docker/starfusion_*
+export DOCKER_IMAGE="${/home/dnanexus/in/sf_docker/starfusion_*}"
 
 # create output directory
 mkdir -p out/starfusion_outputs
