@@ -5,10 +5,11 @@ set -exo pipefail #if any part goes wrong, job will fail
 mark-section "download inputs"
 dx-download-all-inputs
 
-# download genome resources and Docker, decompress
+# download genome resources and Docker, decompress. Try to unzip only STAR  reference transcripts from the genome_lib
 mkdir /home/dnanexus/genomeDir
-tar xvzf /home/dnanexus/in/genome_lib/*.tar.gz -C /home/dnanexus/genomeDir #transcript data from that release of gencode
-export STAR_REFERENCE=/home/dnanexus/genomeDir/*.plug-n-play/ctat_genome_lib_build_dir/ref_genome.fa.star.idx/
+tar xvzf /home/dnanexus/in/genome_lib/*.plug-n-play/ctat_genome_lib_build_dir/ref_genome.fa.star.idx/*.tar.gz \
+-C /home/dnanexus/genomeDir
+export STAR_REFERENCE=/home/dnanexus/genomeDir/ref_genome.fa.star.idx/
 tar xvzf /home/dnanexus/in/sf_docker/starfusion_*.tar.gz
 export DOCKER_IMAGE=/home/dnanexus/in/sf_docker/starfusion_*
 
@@ -17,10 +18,10 @@ mkdir -p out/starfusion_outputs
 
 mark-section "run starfusion"
 
-docker run -v `pwd`:/data --rm \
+docker run -v "$(pwd)":/data --rm \
     "$DOCKER_IMAGE" \
     /usr/local/src/STAR-Fusion/STAR-Fusion \
-    -J "$junctions" \
+    -J "/home/dnanexus/in/junction/*Chimeric.out.junction" \
     --genome_lib_dir "$STAR_REFERENCE" \
     --output_dir "/data/out/starfusion_outputs"
     # --examine_coding_effect \
