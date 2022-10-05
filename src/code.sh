@@ -9,8 +9,8 @@ dx-download-all-inputs
 mkdir /home/dnanexus/genomeDir
 tar xvzf /home/dnanexus/in/genome_lib/*.tar.gz -C /home/dnanexus/genomeDir
 export STAR_REFERENCE=/home/dnanexus/genomeDir/ref_genome.fa.star.idx/
-tar xvzf /home/dnanexus/in/sf_docker/starfusion_*.tar.gz
-export DOCKER_IMAGE="${/home/dnanexus/in/sf_docker/starfusion_*}"
+tar xvzf /home/dnanexus/in/sf_docker/starfusion_*.tar.gz -C /home/dnanexus/in/sf_docker/starfusion
+export DOCKER_IMAGE="/home/dnanexus/in/sf_docker/starfusion"
 
 # create output directory
 mkdir -p out/starfusion_outputs
