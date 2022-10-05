@@ -5,15 +5,15 @@ set -exo pipefail #if any part goes wrong, job will fail
 mark-section "download inputs"
 dx-download-all-inputs
 
+# load the Docker 
+docker load -i /home/dnanexus/in/sf_docker/*
+# Get image id of the loaded docker
+DOCKER_IMAGE_ID=$(docker images --format="{{.Repository}} {{.ID}}" | grep "^trinityctat/starfusion" | cut -d' ' -f2)
+
 # download genome resources, decompress
 mkdir /home/dnanexus/genomeDir
 tar xvzf /home/dnanexus/in/genome_lib/*.tar.gz -C /home/dnanexus/genomeDir
 export STAR_REFERENCE=/home/dnanexus/genomeDir/ref_genome.fa.star.idx/
-
-# load the Docker 
-docker load -i "$sf_docker"
-# Get image id of the loaded docker
-DOCKER_IMAGE_ID=$(docker images --format="{{.Repository}} {{.ID}}" | grep "^trinityctat/starfusion" | cut -d' ' -f2)
 
 # create output directory
 mkdir -p out/starfusion_outputs
