@@ -13,7 +13,7 @@ docker load -i /home/dnanexus/in/sf_docker/*.tar.gz
 DOCKER_IMAGE_ID=$(docker images --format="{{.Repository}} {{.ID}}" | grep "^trinityctat/starfusion" | cut -d' ' -f2)
 
 # get the sample name from the chimeric file
-sample_name=$(echo "$junction_name" | cut -d '_' -f 1)
+sample_name=$(echo "$junction_name" | cut -d '.' -f 1)
 
 # create output directory to move to
 mkdir -p /home/dnanexus/out/starfusion_outputs
@@ -23,7 +23,7 @@ mark-section "run starfusion"
 docker run -v "$(pwd)":/data --rm \
     "${DOCKER_IMAGE_ID}" \
     STAR-Fusion \
-    -J "/data/in/junction/${sample_name}_chimeric.out.junction" \
+    -J "/data/in/junction/${sample_name}.chimeric.out.junction" \
     --genome_lib_dir "/data/${lib_dir}/ctat_genome_lib_build_dir" \
     --output_dir "/data/out/starfusion_outputs"
     # --examine_coding_effect \
@@ -40,7 +40,7 @@ declare -a outnames=("star-fusion.fusion_predictions.abridged.tsv" \
 
 for outfile in "${outnames[@]}"; do
     mv "/home/dnanexus/out/starfusion_outputs/${outfile}" \
-    "/home/dnanexus/out/starfusion_outputs/${sample_name}_${outfile}";
+    "/home/dnanexus/out/starfusion_outputs/${sample_name}.${outfile}";
 done
 
 mark-section "upload outputs"
