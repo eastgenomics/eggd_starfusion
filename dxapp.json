@@ -51,7 +51,7 @@
     "distribution": "Ubuntu"
   },
   "access": {
-    "allProjects": "UPLOAD"
+    "allProjects": "CONTRIBUTE"
   },
   "ignoreReuse": false,
   "regionalOptions": {
