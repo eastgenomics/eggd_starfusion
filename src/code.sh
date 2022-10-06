@@ -2,21 +2,19 @@
 
 set -exo pipefail #if any part goes wrong, job will fail
 
+# download all inputs, untar the plug-n-play resources, and get
+# their path
 mark-section "download inputs"
 dx-download-all-inputs
 tar xf /home/dnanexus/in/genome_lib/*.tar.gz -C /home/dnanexus/
-
-
-# find the plug-n-play resources
 lib_dir=$(find . -type d -name "GR*plug-n-play")
 
-# load the Docker 
+# load the Docker and get its image ID
 docker load -i /home/dnanexus/in/sf_docker/*.tar.gz
-# Get image id of the loaded docker
 DOCKER_IMAGE_ID=$(docker images --format="{{.Repository}} {{.ID}}" | grep "^trinityctat/starfusion" | cut -d' ' -f2)
 
-# create output directory
-mkdir -p out/starfusion_outputs
+# create output directory to move to
+mkdir -p /home/dnanexus/starfusion_outputs
 
 mark-section "run starfusion"
 
@@ -31,7 +29,9 @@ docker run -v "$(pwd)":/data --rm \
 
 mark-section "upload outputs"
 
-# upload all outputs
+# upload all outputs, move to a subdirectory
 dx-upload-all-outputs --parallel
+
+mv out/starfusion_outputs/* /home/dnanexus/starfusion_outputs/
 
 mark-success
