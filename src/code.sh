@@ -8,11 +8,6 @@ dx-download-all-inputs
 tar xf /home/dnanexus/in/genome_lib/*.tar.gz -C /home/dnanexus/
 lib_dir=$(find . -type d -name "GR*plug-n-play")
 
-# Move all the junction files from subdirectories into one directory
-#find ~/in/junction -type f -name "*" -print0 | xargs -0 -I {} mv {} ~/junction
-mkdir ~/junction
-mv ~/in/junction/* ~/junction
-
 # load the Docker and get its image ID
 docker load -i /home/dnanexus/in/sf_docker/*.tar.gz
 DOCKER_IMAGE_ID=$(docker images --format="{{.Repository}} {{.ID}}" | grep "^trinityctat/starfusion" | cut -d' ' -f2)
@@ -28,13 +23,13 @@ mark-section "run starfusion"
 docker run -v "$(pwd)":/data --rm \
     "${DOCKER_IMAGE_ID}" \
     STAR-Fusion \
-    -J "/data/junction/*Chimeric.out.junction" \
+    -J "/data/in/junction/${sample_name}_chimeric.out.junction" \
     --genome_lib_dir "/data/${lib_dir}/ctat_genome_lib_build_dir" \
     --output_dir "/data/out/starfusion_outputs"
     # --examine_coding_effect \
     # --denovo_reconstruct
 
-mark-section "add sample names to outputs"
+mark-section "iterate over all output files and add sample names"
 
 declare -a outnames=("star-fusion.fusion_predictions.abridged.tsv" \
     "star-fusion.fusion_predictions.tsv" \
