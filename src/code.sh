@@ -39,17 +39,12 @@ declare -a outnames=("star-fusion.fusion_predictions.abridged.tsv" \
     "tmp_chim_read_mappings_dir")
 
 for outfile in "${outnames[@]}"; do
-    pwd .
     mv "/home/dnanexus/out/starfusion_outputs/${outfile}" \
     "/home/dnanexus/out/starfusion_outputs/${sample_name}_${outfile}";
 done
 
-
 mark-section "upload outputs"
 
-# upload all outputs, move to a subdirectory
 dx-upload-all-outputs --parallel
-
-mv out/starfusion_outputs/* /home/dnanexus/out/starfusion_outputs/
 
 mark-success
