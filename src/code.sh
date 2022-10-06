@@ -13,6 +13,10 @@ lib_dir=$(find . -type d -name "GR*plug-n-play")
 docker load -i /home/dnanexus/in/sf_docker/*.tar.gz
 DOCKER_IMAGE_ID=$(docker images --format="{{.Repository}} {{.ID}}" | grep "^trinityctat/starfusion" | cut -d' ' -f2)
 
+# get the sample name from the chimeric file
+sample_name=$(echo $junction_name | cut -d '_' -f 1)
+
+
 # create output directory to move to
 mkdir -p /home/dnanexus/out/starfusion_outputs
 
@@ -26,6 +30,20 @@ docker run -v "$(pwd)":/data --rm \
     --output_dir "/data/out/starfusion_outputs"
     # --examine_coding_effect \
     # --denovo_reconstruct
+
+mark-section "add sample names to outputs"
+
+declare -a outnames=("star-fusion.fusion_predictions.abridged.tsv" \
+    "star-fusion.fusion_predictions.tsv" \
+    "pipeliner.1.cmds" \
+    "_starF_checkpoints" \
+    "star-fusion.preliminary" \
+    "tmp_chim_read_mappings_dir")
+
+for outfile in "${outnames[@]}"; do
+    mv outfile "${sample_name}_${outfile}";
+done
+
 
 mark-section "upload outputs"
 
