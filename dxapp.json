@@ -10,7 +10,7 @@
     {
       "name": "junction",
       "label": "junction",
-      "help": "Chimeric junction file, produced by STAR-Aligner",
+      "help": "Chimeric junction files, produced by STAR-Aligner",
       "class": "file",
       "patterns": ["*_chimeric.out.junction"],
       "optional": false
