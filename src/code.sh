@@ -14,7 +14,7 @@ docker load -i /home/dnanexus/in/sf_docker/*.tar.gz
 DOCKER_IMAGE_ID=$(docker images --format="{{.Repository}} {{.ID}}" | grep "^trinityctat/starfusion" | cut -d' ' -f2)
 
 # create output directory to move to
-mkdir -p /home/dnanexus/starfusion_outputs
+mkdir -p /home/dnanexus/out/starfusion_outputs
 
 mark-section "run starfusion"
 
@@ -32,6 +32,6 @@ mark-section "upload outputs"
 # upload all outputs, move to a subdirectory
 dx-upload-all-outputs --parallel
 
-mv out/starfusion_outputs/* /home/dnanexus/starfusion_outputs/
+mv out/starfusion_outputs/* /home/dnanexus/out/starfusion_outputs/
 
 mark-success
