@@ -39,7 +39,9 @@ declare -a outnames=("star-fusion.fusion_predictions.abridged.tsv" \
     "tmp_chim_read_mappings_dir")
 
 for outfile in "${outnames[@]}"; do
-    mv "${outfile}" "${sample_name}_${outfile}";
+    pwd .
+    mv "/home/dnanexus/out/starfusion_outputs/${outfile}" \
+    "/home/dnanexus/out/starfusion_outputs/${sample_name}_${outfile}";
 done
 
 
