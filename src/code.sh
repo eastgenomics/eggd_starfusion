@@ -29,7 +29,7 @@ docker run -v "$(pwd)":/data --rm \
 
 mark-section "iterate over all output files and add sample names"
 
-outnames=($(ls /data/out/starfusion_outputs/*))
+outnames=($(ls /home/dnanexus/out/starfusion_outputs/*))
 
 for outfile in "${outnames[@]}"; do
     mv "/home/dnanexus/out/starfusion_outputs/${outfile}" \
