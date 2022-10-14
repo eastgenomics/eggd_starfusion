@@ -26,11 +26,10 @@ docker run -v "$(pwd)":/data --rm \
     STAR-Fusion \
     -J "/data/in/junction/${sample_name}.chimeric.out.junction" \
     --genome_lib_dir "/data/${lib_dir}/ctat_genome_lib_build_dir" \
-    --output_dir "/data/out/starfusion_outputs"
+    --output_dir "/data/out"
 
 mark-section "move all output files to a sample-named directory, and rename them all to have the sample name too"
 
-find /home/dnanexus/out/starfusion_outputs -name "*" -print0 | xargs -0 -I {} mv {} "${final_dir}"
 for f in ${final_dir} ; do mv -- "$f" "${sample_name}.$f" ; done
 
 mark-section "upload outputs"
