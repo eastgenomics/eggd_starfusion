@@ -16,7 +16,8 @@ DOCKER_IMAGE_ID=$(docker images --format="{{.Repository}} {{.ID}}" | grep "^trin
 sample_name=$(echo "$junction_name" | cut -d '.' -f 1)
 
 # create output directory to move to
-mkdir -p /home/dnanexus/out/"${sample_name}_STAR-Fusion"
+final_dir="/home/dnanexus/out/${sample_name}_STAR-Fusion"
+mkdir -p "${final_dir}"
 
 mark-section "run starfusion"
 
@@ -27,21 +28,10 @@ docker run -v "$(pwd)":/data --rm \
     --genome_lib_dir "/data/${lib_dir}/ctat_genome_lib_build_dir" \
     --output_dir "/data/out/starfusion_outputs"
 
-mark-section "iterate over all output files and add sample names"
+mark-section "move all output files to a sample-named directory, and rename them all to have the sample name too"
 
-outnames=$(find /home/dnanexus/out/starfusion_outputs -name "*")
-declare -a outarray
-while read -r line; do
-    # cut off the starting ./
-    line=$(sed 's/^.\///' <<< "${line}")
-    outarray+=("${line}")
-done < "${outnames}"
-
-
-for outfile in "${outarray[@]}"; do
-    mv "/home/dnanexus/out/starfusion_outputs/${outfile}" \
-    "/home/dnanexus/out/${sample_name}_STAR-Fusion/${sample_name}.${outfile}";
-done
+find /home/dnanexus/out/starfusion_outputs -name "*" -print0 | xargs -0 -I {} mv {} "${final_dir}"
+for f in ${final_dir} ; do mv -- "$f" "${sample_name}.$f" ; done
 
 mark-section "upload outputs"
 
