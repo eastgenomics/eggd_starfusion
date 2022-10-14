@@ -29,9 +29,16 @@ docker run -v "$(pwd)":/data --rm \
 
 mark-section "iterate over all output files and add sample names"
 
-outnames=($(ls /home/dnanexus/out/starfusion_outputs/*))
+outnames=$(find /home/dnanexus/out/starfusion_outputs -name "*")
+declare -a outarray
+while read -r line; do
+    # cut off the starting ./
+    line=$(sed 's/^.\///' <<< "${line}")
+    outarray+=("${line}")
+done < "${outnames}"
 
-for outfile in "${outnames[@]}"; do
+
+for outfile in "${outarray[@]}"; do
     mv "/home/dnanexus/out/starfusion_outputs/${outfile}" \
     "/home/dnanexus/out/${sample_name}_STAR-Fusion/${sample_name}.${outfile}";
 done
