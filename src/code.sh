@@ -30,7 +30,8 @@ docker run -v "$(pwd)":/data --rm \
 
 mark-section "move all output files to a sample-named directory, and rename them all to have the sample name too"
 
-for f in ${final_dir} ; do mv -- "$f" "${sample_name}.$f" ; done
+cd ${final_dir}
+for f in $(ls); do mv "${f}" "${sample_name}.${f}"; done
 
 mark-section "upload outputs"
 
