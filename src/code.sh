@@ -16,7 +16,7 @@ DOCKER_IMAGE_ID=$(docker images --format="{{.Repository}} {{.ID}}" | grep "^trin
 sample_name=$(echo "$junction_name" | cut -d '.' -f 1)
 
 # create output directory to move to
-mkdir -p /home/dnanexus/out/starfusion_outputs
+mkdir -p /home/dnanexus/out/"${sample_name}_STAR-Fusion"
 
 mark-section "run starfusion"
 
@@ -26,21 +26,14 @@ docker run -v "$(pwd)":/data --rm \
     -J "/data/in/junction/${sample_name}.chimeric.out.junction" \
     --genome_lib_dir "/data/${lib_dir}/ctat_genome_lib_build_dir" \
     --output_dir "/data/out/starfusion_outputs"
-    # --examine_coding_effect \
-    # --denovo_reconstruct
 
 mark-section "iterate over all output files and add sample names"
 
-declare -a outnames=("star-fusion.fusion_predictions.abridged.tsv" \
-    "star-fusion.fusion_predictions.tsv" \
-    "pipeliner.1.cmds" \
-    "_starF_checkpoints" \
-    "star-fusion.preliminary" \
-    "tmp_chim_read_mappings_dir")
+outnames=("$(ls -d /data/out/starfusion_outputs/*)")
 
 for outfile in "${outnames[@]}"; do
     mv "/home/dnanexus/out/starfusion_outputs/${outfile}" \
-    "/home/dnanexus/out/starfusion_outputs/${sample_name}.${outfile}";
+    "/home/dnanexus/out/${sample_name}_STAR-Fusion/${sample_name}.${outfile}";
 done
 
 mark-section "upload outputs"
