@@ -5,7 +5,7 @@ set -exo pipefail #if any part goes wrong, job will fail
 # download all inputs, untar the plug-n-play resources, and get its path
 mark-section "download inputs"
 dx-download-all-inputs
-tar xvzf /home/dnanexus/in/genome_lib/* -C /home/dnanexus/genomeDir
+gzip /home/dnanexus/in/genome_lib/* > /home/dnanexus/genomeDir
 #lib_dir=$(find . -type d -name "GR*plug-n-play")
 lib_dir=/home/dnanexus/genomeDir
 
