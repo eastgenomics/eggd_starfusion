@@ -22,7 +22,7 @@ docker run -v "$(pwd)":/data --rm \
     "${DOCKER_IMAGE_ID}" \
     STAR-Fusion \
     -J "/data/in/junction/${sample_name}.chimeric.out.junction" \
-    --genome_lib_dir "/data/${lib_dir}" \
+    --genome_lib_dir "/data/genomeDir/*" \
     --output_dir "/data/out"
 
 mark-section "move all output files to a named directory, and add sample names"
