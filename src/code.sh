@@ -5,8 +5,8 @@ set -exo pipefail #if any part goes wrong, job will fail
 # download all inputs, untar the plug-n-play resources, and get its path
 mark-section "download inputs"
 dx-download-all-inputs
-gzip -d /home/dnanexus/in/genome_lib/*
-lib_file=$(find /home/dnanexus/in/genome_lib -type -f -name "*" -printf "%f")
+tar xf /home/dnanexus/in/genome_lib/*.tar.gz -C /home/dnanexus/
+lib_dir=$(find . -type d -name "GR*plug-n-play")
 
 # load the Docker and get its image ID
 docker load -i /home/dnanexus/in/sf_docker/*.tar.gz
@@ -21,7 +21,7 @@ docker run -v "$(pwd)":/data --rm \
     "${DOCKER_IMAGE_ID}" \
     STAR-Fusion \
     -J "/data/in/junction/${sample_name}.chimeric.out.junction" \
-    --genome_lib_dir "/data/in/genome_lib/${lib_file}" \
+    --genome_lib_dir "/data/${lib_dir}/ctat_genome_lib_build_dir" \
     --output_dir "/data/out"
 
 mark-section "move all output files to a named directory, and add sample names"
