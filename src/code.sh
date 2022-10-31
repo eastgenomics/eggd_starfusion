@@ -5,6 +5,7 @@ set -exo pipefail #if any part goes wrong, job will fail
 # download all inputs, untar the plug-n-play resources, and get its path
 mark-section "download inputs"
 dx-download-all-inputs
+mkdir /home/dnanexus/ctat_unpacked
 tar xf /home/dnanexus/in/genome_lib/*.tar.gz -C /home/dnanexus/ctat_unpacked
 lib_dir=$(find /home/dnanexus/ctat_unpacked -type d -name "*" -mindepth 1 -maxdepth 1)
 
