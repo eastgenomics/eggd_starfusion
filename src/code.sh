@@ -20,7 +20,7 @@ mark-section "run starfusion"
 docker run -v "$(pwd)":/data --rm \
     "${DOCKER_IMAGE_ID}" \
     STAR-Fusion \
-    -J "/data/in/junction/${sample_name}.chimeric.out.junction" \
+    -J "/data/in/junction/${sample_name}.chimeric.junction.out" \
     --genome_lib_dir "/data/${lib_dir}/ctat_genome_lib_build_dir" \
     --output_dir "/data/out"
 

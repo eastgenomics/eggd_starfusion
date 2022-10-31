@@ -1,7 +1,7 @@
 {
   "name": "starfusion_v1.11.1",
   "title": "STAR-Fusion v1.0.0",
-  "summary": "STAR-Fusion app which runs the official Docker",
+  "summary": "STAR-Fusion app which runs STAR-Fusion in the official Docker",
   "properties": {
     "github release": "pending"
   },
@@ -12,7 +12,7 @@
       "label": "junction",
       "help": "Chimeric junction files, produced by STAR-Aligner",
       "class": "file",
-      "patterns": ["*.chimeric.out.junction"],
+      "patterns": ["*.chimeric.junction.out"],
       "optional": false
     },
     {
@@ -50,6 +50,12 @@
     "interpreter": "bash",
     "distribution": "Ubuntu"
   },
+  "developers":[
+    "org-emee_1"
+  ],
+  "authorizedUsers": [
+    "org-emee_1"
+  ],
   "access": {
     "allProjects": "CONTRIBUTE"
   },
