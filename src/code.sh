@@ -2,12 +2,12 @@
 
 set -exo pipefail #if any part goes wrong, job will fail
 
-# download all inputs, untar the plug-n-play resources, and get its path
+# download all inputs, untar the plug-n-play resources, and get the name of the untarred directory
 mark-section "download inputs"
 dx-download-all-inputs
 mkdir /home/dnanexus/ctat_unpacked
 tar xf /home/dnanexus/in/genome_lib/*.tar.gz -C /home/dnanexus/ctat_unpacked
-lib_dir=$(find /home/dnanexus/ctat_unpacked -type d -name "*" -mindepth 1 -maxdepth 1)
+lib_dir=$(find /home/dnanexus/ctat_unpacked -type d -name "*" -mindepth 1 -maxdepth 1 | rev | cut -d'/' -f-3 | rev)
 
 # load the Docker and get its image ID
 docker load -i /home/dnanexus/in/sf_docker/*.tar.gz
