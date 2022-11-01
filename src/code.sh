@@ -35,7 +35,7 @@ find /home/dnanexus/out -type f -name "*pipeliner.*.cmds" -printf "%f\n" | \
 xargs -I{} mv /home/dnanexus/out/{} "${final_dir}"/"${sample_name}"_{}
 find /home/dnanexus/out -type f -name "*fusion_predictions.abridged.tsv" -printf "%f\n" | \
 xargs -I{} mv /home/dnanexus/out/{} "${final_dir}"/"${sample_name}"_{}
-find /home/dnanexus/out -type f -name "*fusion_predictions.abridged.tsv" -printf "%f\n" | \
+find /home/dnanexus/out -type f -name "*fusion_predictions.tsv" -printf "%f\n" | \
 xargs -I{} mv /home/dnanexus/out/{} "${final_dir}"/"${sample_name}"_{}
 
 # move temp directories, excluding the parent one we just made
