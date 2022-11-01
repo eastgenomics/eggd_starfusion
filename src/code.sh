@@ -7,7 +7,7 @@ mark-section "download inputs"
 dx-download-all-inputs
 mkdir /home/dnanexus/ctat_unpacked
 tar xf /home/dnanexus/in/genome_lib/*.tar.gz -C /home/dnanexus/ctat_unpacked
-lib_dir=$(find /home/dnanexus/ctat_unpacked -type d -name "*" -mindepth 1 -maxdepth 1 | rev | cut -d'/' -f-3 | rev)
+lib_dir=$(find /home/dnanexus/ctat_unpacked -type d -name "*" -mindepth 1 -maxdepth 1 | rev | cut -d'/' -f-1 | rev)
 
 # load the Docker and get its image ID
 docker load -i /home/dnanexus/in/sf_docker/*.tar.gz
