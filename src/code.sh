@@ -25,22 +25,16 @@ docker run -v "$(pwd)":/data --rm \
     --genome_lib_dir "/data/ctat_unpacked/${lib_dir}/ctat_genome_lib_build_dir" \
     --output_dir "/data/out"
 
-mark-section "move all output files to a named directory, and add sample names"
-# create output parent directory to move to
-final_dir="/home/dnanexus/out/${sample_name}_STAR-Fusion"
-mkdir -p "${final_dir}"
+mark-section "create output directories, move relevant output files, and add sample names"
+# create output directories for uploading
+mkdir /home/dnanexus/out/starfusion_predictions
+mkdir /home/dnanexus/out/starfusion_abridged
 
-# rename and move summary files
-find /home/dnanexus/out -type f -name "*pipeliner.*.cmds" -printf "%f\n" | \
-xargs -I{} mv /home/dnanexus/out/{} "${final_dir}"/"${sample_name}"_{}
+# rename and move summary files to output directories
 find /home/dnanexus/out -type f -name "*fusion_predictions.abridged.tsv" -printf "%f\n" | \
-xargs -I{} mv /home/dnanexus/out/{} "${final_dir}"/"${sample_name}"_{}
+xargs -I{} mv /home/dnanexus/out/{} /home/dnanexus/out/starfusion_predictions/"${sample_name}"_{}
 find /home/dnanexus/out -type f -name "*fusion_predictions.tsv" -printf "%f\n" | \
-xargs -I{} mv /home/dnanexus/out/{} "${final_dir}"/"${sample_name}"_{}
-
-# move temp directories, excluding the parent one we just made
-find /home/dnanexus/out -type d -name "*" -not -path "${final_dir}" -printf "%f\n" | \
-xargs -I{} mv /home/dnanexus/out/{} "${final_dir}"/
+xargs -I{} mv /home/dnanexus/out/{} /home/dnanexus/out/starfusion_abridged/"${sample_name}"_{}
 
 mark-section "upload outputs"
 
