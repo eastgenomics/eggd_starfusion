@@ -36,14 +36,14 @@
       "label": "starfusion_predictions",
       "help": "STAR-Fusion predicted outputs",
       "class": "file",
-      "patterns": "*fusion_predictions.tsv"
+      "patterns": ["*fusion_predictions.tsv"]
     },
     {
         "name": "starfusion_abridged",
         "label": "starfusion_abridged",
         "help": "STAR-Fusion predicted outputs - abridged version",
         "class": "file",
-        "patterns": "*fusion_predictions.abridged.tsv"
+        "patterns": ["*fusion_predictions.abridged.tsv"]
     }
   ],
   "runSpec": {
