@@ -9,6 +9,11 @@ mkdir /home/dnanexus/ctat_unpacked
 tar xf /home/dnanexus/in/genome_lib/*.tar.gz -C /home/dnanexus/ctat_unpacked
 lib_dir=$(find /home/dnanexus/ctat_unpacked -type d -name "*" -mindepth 1 -maxdepth 1 | rev | cut -d'/' -f-1 | rev)
 
+# make output dirs for later
+mkdir /home/dnanexus/out
+mkdir /home/dnanexus/out/starfusion_predictions
+mkdir /home/dnanexus/out/starfusion_abridged
+
 # load the Docker and get its image ID
 docker load -i /home/dnanexus/in/sf_docker/*.tar.gz
 DOCKER_IMAGE_ID=$(docker images --format="{{.Repository}} {{.ID}}" | grep "^trinityctat/starfusion" | cut -d' ' -f2)
@@ -26,11 +31,7 @@ docker run -v "$(pwd)":/data --rm \
     --genome_lib_dir "/data/ctat_unpacked/${lib_dir}/ctat_genome_lib_build_dir" \
     --output_dir "/data/temp_out"
 
-mark-section "create final output directories, move relevant output files, and add sample names"
-# create directories for uploading key outputs
-mkdir /home/dnanexus/out/starfusion_predictions
-mkdir /home/dnanexus/out/starfusion_abridged
-
+mark-section "move relevant output files, and add sample names"
 # rename and move summary files to output directories
 find /home/dnanexus/temp_out -type f -name "*fusion_predictions.abridged.tsv" -printf "%f\n" | \
 xargs -I{} mv /home/dnanexus/temp_out/{} /home/dnanexus/out/starfusion_predictions/"${sample_name}"_{}
