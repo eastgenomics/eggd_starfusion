@@ -16,25 +16,26 @@ DOCKER_IMAGE_ID=$(docker images --format="{{.Repository}} {{.ID}}" | grep "^trin
 # get the sample name from the chimeric file
 sample_name=$(echo "$junction_name" | cut -d '.' -f 1)
 
-mark-section "run starfusion"
+mark-section "run starfusion to a temporary 'out' directory"
+mkdir /home/dnanexus/temp_out
 
 docker run -v "$(pwd)":/data --rm \
     "${DOCKER_IMAGE_ID}" \
     STAR-Fusion \
     -J "/data/in/junction/${sample_name}.chimeric.junction.out" \
     --genome_lib_dir "/data/ctat_unpacked/${lib_dir}/ctat_genome_lib_build_dir" \
-    --output_dir "/data/out"
+    --output_dir "/data/temp_out"
 
-mark-section "create output directories, move relevant output files, and add sample names"
-# create output directories for uploading
+mark-section "create final output directories, move relevant output files, and add sample names"
+# create directories for uploading key outputs
 mkdir /home/dnanexus/out/starfusion_predictions
 mkdir /home/dnanexus/out/starfusion_abridged
 
 # rename and move summary files to output directories
-find /home/dnanexus/out -type f -name "*fusion_predictions.abridged.tsv" -printf "%f\n" | \
-xargs -I{} mv /home/dnanexus/out/{} /home/dnanexus/out/starfusion_predictions/"${sample_name}"_{}
-find /home/dnanexus/out -type f -name "*fusion_predictions.tsv" -printf "%f\n" | \
-xargs -I{} mv /home/dnanexus/out/{} /home/dnanexus/out/starfusion_abridged/"${sample_name}"_{}
+find /home/dnanexus/temp_out -type f -name "*fusion_predictions.abridged.tsv" -printf "%f\n" | \
+xargs -I{} mv /home/dnanexus/temp_out/{} /home/dnanexus/out/starfusion_predictions/"${sample_name}"_{}
+find /home/dnanexus/temp_out -type f -name "*fusion_predictions.tsv" -printf "%f\n" | \
+xargs -I{} mv /home/dnanexus/temp_out/{} /home/dnanexus/out/starfusion_abridged/"${sample_name}"_{}
 
 mark-section "upload outputs"
 
