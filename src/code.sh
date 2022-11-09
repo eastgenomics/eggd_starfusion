@@ -10,8 +10,7 @@ tar xf /home/dnanexus/in/genome_lib/*.tar.gz -C /home/dnanexus/ctat_unpacked
 lib_dir=$(find /home/dnanexus/ctat_unpacked -type d -name "*" -mindepth 1 -maxdepth 1 | rev | cut -d'/' -f-1 | rev)
 
 # make output dirs for later
-mkdir /home/dnanexus/out
-mkdir /home/dnanexus/out/starfusion_predictions
+mkdir -p /home/dnanexus/out/starfusion_predictions
 mkdir /home/dnanexus/out/starfusion_abridged
 
 # load the Docker and get its image ID
