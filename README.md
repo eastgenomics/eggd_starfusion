@@ -1,7 +1,7 @@
-# STAR-Fusion v1.0.1
+# STAR-Fusion v1.0.0
 
 ## What does this app do?
-Runs STAR-Fusion, a tool which identifies candidate fusion transcripts from RNA alignments. This app is specifically set up to process the 'Chimeric.out.junction' files produced by the earlier STAR-Aligner alignment step. It produces files of candidate fusion regions.
+Runs STAR-Fusion v1.11.1, a tool which identifies candidate fusion transcripts from RNA alignments. This app is specifically set up to process the 'Chimeric.out.junction' files produced by the earlier STAR-Aligner alignment step. It produces files of candidate fusion regions.
 
 ## What inputs are required for this app to run?
 * The DNA Nexus file ID of a junction file, produced by STAR-Aligner

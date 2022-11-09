@@ -1,11 +1,12 @@
 {
-  "name": "starfusion_v1.11.1",
-  "title": "STAR-Fusion v1.0.0",
-  "summary": "STAR-Fusion app which runs STAR-Fusion in the official Docker",
+  "name": "eggd_starfusion",
+  "title": "eggd_starfusion",
+  "summary": "STAR-Fusion app which runs STAR-Fusion v.1.11.1 in the official Docker",
   "properties": {
     "github release": "pending"
   },
   "dxapi": "1.0.0",
+  "version": "1.0.0",
   "inputSpec": [
     {
       "name": "junction",
@@ -25,7 +26,7 @@
     {
       "name": "genome_lib",
       "label": "genome_lib",
-      "help": "STAR genome resources",
+      "help": "A CTAT genome library, which is a reference file bundle required by Trinity CTAT tools",
       "class": "file",
       "optional": false
     }
