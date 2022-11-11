@@ -33,9 +33,9 @@ docker run -v "$(pwd)":/data --rm \
 mark-section "move relevant output files, and add sample names"
 # rename and move summary files to output directories
 find /home/dnanexus/temp_out -type f -name "*fusion_predictions.abridged.tsv" -printf "%f\n" | \
-xargs -I{} mv /home/dnanexus/temp_out/{} /home/dnanexus/out/starfusion_predictions/"${sample_name}"_{}
+xargs -I{} mv /home/dnanexus/temp_out/{} /home/dnanexus/out/starfusion_predictions/"${sample_name}".{}
 find /home/dnanexus/temp_out -type f -name "*fusion_predictions.tsv" -printf "%f\n" | \
-xargs -I{} mv /home/dnanexus/temp_out/{} /home/dnanexus/out/starfusion_abridged/"${sample_name}"_{}
+xargs -I{} mv /home/dnanexus/temp_out/{} /home/dnanexus/out/starfusion_abridged/"${sample_name}".{}
 
 mark-section "upload outputs"
 
