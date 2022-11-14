@@ -1,0 +1,81 @@
+{
+  "name": "eggd_starfusion",
+  "title": "eggd_starfusion",
+  "summary": "STAR-Fusion app which runs STAR-Fusion v.1.11.1 in the official Docker",
+  "properties": {
+    "github release": "pending"
+  },
+  "dxapi": "1.0.0",
+  "version": "1.0.0",
+  "inputSpec": [
+    {
+      "name": "junction",
+      "label": "junction",
+      "help": "Chimeric junction files, produced by STAR-Aligner",
+      "class": "file",
+      "patterns": ["*.chimeric.junction.out"],
+      "optional": false
+    },
+    {
+      "name": "sf_docker",
+      "label": "sf_docker",
+      "help": "File ID of Starfusion Docker image in DNA Nexus",
+      "class": "file",
+      "optional": false
+    },
+    {
+      "name": "genome_lib",
+      "label": "genome_lib",
+      "help": "A CTAT genome library, which is a reference file bundle required by Trinity CTAT tools",
+      "class": "file",
+      "optional": false
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "starfusion_predictions",
+      "label": "starfusion_predictions",
+      "help": "STAR-Fusion predicted outputs",
+      "class": "file",
+      "patterns": ["*fusion_predictions.tsv"]
+    },
+    {
+        "name": "starfusion_abridged",
+        "label": "starfusion_abridged",
+        "help": "STAR-Fusion predicted outputs - abridged version",
+        "class": "file",
+        "patterns": ["*fusion_predictions.abridged.tsv"]
+    }
+  ],
+  "runSpec": {
+    "timeoutPolicy": {
+      "*": {
+        "hours": 12
+      }
+    },
+    "release": "20.04",
+    "file": "src/code.sh",
+    "version": "0",
+    "interpreter": "bash",
+    "distribution": "Ubuntu"
+  },
+  "developers":[
+    "org-emee_1"
+  ],
+  "authorizedUsers": [
+    "org-emee_1"
+  ],
+  "access": {
+    "allProjects": "CONTRIBUTE"
+  },
+  "ignoreReuse": false,
+  "regionalOptions": {
+    "aws:eu-central-1": {
+      "systemRequirements": {
+        "main": {
+          "instanceType": "mem3_ssd1_v2_x8"
+        }
+      }
+    }
+  }
+}
