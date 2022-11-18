@@ -80,6 +80,7 @@ Miscellaneous options:
 # Options which are irrelevant or app-controlled
 The below options only control where files are output and how resources are allocated, and are either not used, or are managed by the app: 
 * --output_dir
+* --CPU
 * --STAR_PATH
 * --STAR_limitBAMsortRAM
 * --tmpdir
