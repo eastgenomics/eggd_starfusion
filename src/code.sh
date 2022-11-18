@@ -23,6 +23,9 @@ sample_name=$(echo "$junction_name" | cut -d '.' -f 1)
 mark-section "run starfusion to a temporary 'out' directory"
 mkdir /home/dnanexus/temp_out
 
+# TODO: opt_parameter calling
+# TODO: pass args to --CPU
+
 docker run -v "$(pwd)":/data --rm \
     "${DOCKER_IMAGE_ID}" \
     STAR-Fusion \

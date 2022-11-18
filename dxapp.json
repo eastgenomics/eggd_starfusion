@@ -29,6 +29,13 @@
       "help": "A CTAT genome library, which is a reference file bundle required by Trinity CTAT tools",
       "class": "file",
       "optional": false
+    },
+    {
+      "name": "opt_parameters",
+      "label": "Optional additional parameters to be used by STAR-Fusion",
+      "help": "The optional additional parameters and flags for STAR-Fusion. Should be space-delimated, and in the format --parameter-name value",
+      "class": "string",
+      "optional": true
     }
   ],
   "outputSpec": [
