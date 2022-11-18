@@ -13,7 +13,7 @@
       "label": "junction",
       "help": "Chimeric junction files, produced by STAR-Aligner",
       "class": "file",
-      "patterns": ["*.chimeric.junction.out"],
+      "patterns": ["*.chimeric.out.junction"],
       "optional": false
     },
     {

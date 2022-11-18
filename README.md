@@ -5,7 +5,7 @@ Runs STAR-Fusion v1.11.1, a tool which identifies candidate fusion transcripts f
 
 ## What inputs are required for this app to run?
 * The DNA Nexus file ID of a junction file, produced by STAR-Aligner
-    * The file should be named in the format 'sample_name.chimeric.junction.out'
+    * The file should be named in the format 'sample_name.chimeric.out.junction'
     * The file name is split on '.' and the first field used to name the output files
 * The DNA Nexus file ID of a STAR genome resource, which should be a compressed '.tar.gz' file - from https://data.broadinstitute.org/Trinity/CTAT_RESOURCE_LIB/
 * The DNA Nexus file ID of a saved STAR-Fusion Docker image, which should be a compressed '.tar.gz'
@@ -22,7 +22,7 @@ Runs STAR-Fusion v1.11.1, a tool which identifies candidate fusion transcripts f
 
 ## What does this app output?
 * The app generates:
-    * starfusion_predictions: the predictions file prefixed with the sample name (extracted from the '.chimeric.junction.out' file), and ending '.fusion_predictions.tsv'
+    * starfusion_predictions: the predictions file prefixed with the sample name (extracted from the '.chimeric.out,junction' file), and ending '.fusion_predictions.tsv'
     * starfusion_abridged: the abridged version of the predictions file, prefixed with the sample name (as above),
     and ending '.fusion_predictions.abridgedtsv'
 
