@@ -32,7 +32,7 @@ wd="$(pwd)"
 sf_cmd="docker run -v ${wd}:/data --rm \
     ${DOCKER_IMAGE_ID} \
     STAR-Fusion \
-    -J /data/in/junction/${sample_name}.chimeric.out.junction \
+    -J /data/in/junction/${junction_name} \
     --genome_lib_dir /data/ctat_unpacked/${lib_dir}/ctat_genome_lib_build_dir \
     --output_dir /data/temp_out \
     --CPU ${NUMBER_THREADS}"
