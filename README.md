@@ -1,11 +1,11 @@
-# STAR-Fusion v1.0.0
+# eggd_starfusion v1.0.0
 
 ## What does this app do?
 Runs STAR-Fusion v1.11.1, a tool which identifies candidate fusion transcripts from RNA alignments. This app is specifically set up to process the 'Chimeric.out.junction' files produced by the earlier STAR-Aligner alignment step. It produces files of candidate fusion regions.
 
 ## What inputs are required for this app to run?
 * The DNA Nexus file ID of a junction file, produced by STAR-Aligner
-    * The file should be named in the format 'sample_name.chimeric.out.junction' or 'sample_name.chimeric.junction.out'
+    * The file should be named in the format 'sample_name.chimeric.out.junction'
     * The file name is split on '.' and the first field used to name the output files
 * The DNA Nexus file ID of a STAR genome resource, which should be a compressed '.tar.gz' file - from https://data.broadinstitute.org/Trinity/CTAT_RESOURCE_LIB/
 * The DNA Nexus file ID of a saved STAR-Fusion Docker image, which should be a compressed '.tar.gz'
@@ -24,7 +24,7 @@ Runs STAR-Fusion v1.11.1, a tool which identifies candidate fusion transcripts f
 * The app generates:
     * starfusion_predictions: the predictions file prefixed with the sample name (extracted from the StarAligner junctions file), and ending '.fusion_predictions.tsv'
     * starfusion_abridged: the abridged version of the predictions file, prefixed with the sample name (as above),
-    and ending '.fusion_predictions.abridgedtsv'
+    and ending '.fusion_predictions.abridged.tsv'
 
 ## Appendix: Additional options 
 # Options which may be useful
@@ -100,8 +100,5 @@ The below options are unlikely to be needed, because the workflow relies on a se
 * --misc_FI_opts STR
 * --version
 * --samples_file STR (intended for single-cell)
-
-## Notes
-* This app is not ready for production use
 
 ## This app was made by East GLH
