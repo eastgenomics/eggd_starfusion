@@ -20,15 +20,30 @@ DOCKER_IMAGE_ID=$(docker images --format="{{.Repository}} {{.ID}}" | grep "^trin
 # get the sample name from the chimeric file
 sample_name=$(echo "$junction_name" | cut -d '.' -f 1)
 
+# obtain instance information to set CPU option
+INSTANCE=$(dx describe --json $DX_JOB_ID | jq -r '.instanceType')  # Extract instance type
+NUMBER_THREADS=${INSTANCE##*_x}
+
 mark-section "run starfusion to a temporary 'out' directory"
 mkdir /home/dnanexus/temp_out
 
-docker run -v "$(pwd)":/data --rm \
-    "${DOCKER_IMAGE_ID}" \
+mark-section "Set up basic STAR-Fusion command prior to running, and add any optional parameters"
+wd="$(pwd)"
+sf_cmd="docker run -v ${wd}:/data --rm \
+    ${DOCKER_IMAGE_ID} \
     STAR-Fusion \
-    -J "/data/in/junction/${sample_name}.chimeric.junction.out" \
-    --genome_lib_dir "/data/ctat_unpacked/${lib_dir}/ctat_genome_lib_build_dir" \
-    --output_dir "/data/temp_out"
+    -J /data/in/junction/${junction_name} \
+    --genome_lib_dir /data/ctat_unpacked/${lib_dir}/ctat_genome_lib_build_dir \
+    --output_dir /data/temp_out \
+    --CPU ${NUMBER_THREADS}"
+
+if [ -n "$opt_parameters" ]; then
+       mark-section "Adding additional user-entered parameters to STAR-Fusion command"
+       sf_cmd="${sf_cmd} ${opt_parameters}"
+fi
+
+mark-section "Run STAR-Fusion"
+eval "${sf_cmd}"
 
 mark-section "move relevant output files, and add sample names"
 # rename and move summary files to output directories
