@@ -38,8 +38,17 @@ sf_cmd="docker run -v ${wd}:/data --rm \
     --CPU ${NUMBER_THREADS}"
 
 if [ -n "$opt_parameters" ]; then
-       mark-section "Adding additional user-entered parameters to STAR-Fusion command"
-       sf_cmd="${sf_cmd} ${opt_parameters}"
+    # Test that there are no banned parameters in --parameters input string
+    banned_parameters=(-J --genome_lib_dir --output_dir --CPU)
+    for parameter in ${banned_parameters[@]}; do
+        if [[ "$opt_parameters" == *"$parameter"* ]]; then
+            echo "Ihe parameter ${parameter} was set as an input. This parameter is set within the app and cannot \
+            be set as an input. Please repeat without this parameter"
+            exit 1
+        fi
+    done
+    mark-section "Adding additional user-entered parameters to STAR-Fusion command"
+    sf_cmd="${sf_cmd} ${opt_parameters}"
 fi
 
 mark-section "Run STAR-Fusion"
