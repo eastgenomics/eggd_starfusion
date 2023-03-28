@@ -10,6 +10,8 @@ Runs STAR-Fusion, a tool which identifies candidate fusion transcripts from RNA 
 * The DNA Nexus file ID of a STAR genome resource, which should be a compressed '.tar.gz' file - from https://data.broadinstitute.org/Trinity/CTAT_RESOURCE_LIB/
 * The DNA Nexus file ID of a saved STAR-Fusion Docker image, which should be a compressed '.tar.gz'
 * Additional parameters can be passed using 'opt_parameters', which should be a space-delimited string. If additional parameters aren't passed, the defaults will run. 
+    * If you're running 2 or more optional parameters, it will be formatted like so: 
+    -iopt_parameters="--opt_a data --opt_b more_data"
     * Options available are detailed at the bottom of the page under 'Appendix 1'.
 
 ## How does this app work?
