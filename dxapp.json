@@ -1,10 +1,7 @@
 {
   "name": "eggd_starfusion",
   "title": "eggd_starfusion",
-  "summary": "STAR-Fusion app which runs STAR-Fusion v.1.11.1 in the official Docker",
-  "properties": {
-    "github release": "pending"
-  },
+  "summary": "STAR-Fusion app which runs STAR-Fusion in the user-provided official Docker. STAR-Fusion detects fusions in aligned RNA sequence data.",
   "dxapi": "1.0.0",
   "version": "1.0.0",
   "inputSpec": [
