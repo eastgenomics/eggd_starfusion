@@ -1,7 +1,7 @@
 # eggd_starfusion v1.0.0
 
 ## What does this app do?
-Runs STAR-Fusion, a tool which identifies candidate fusion transcripts from RNA alignments, from its official Docker image provded by the user. This app is specifically set up to process the 'Chimeric.out.junction' files produced by the earlier STAR-Aligner alignment step. It produces files of candidate fusion regions.
+Runs STAR-Fusion (https://github.com/STAR-Fusion/STAR-Fusion; https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1842-9), a tool which identifies candidate fusion transcripts from RNA alignments, from its official Docker image. The Docker image is provided by the user as an app input. This app is specifically set up to process the 'Chimeric.out.junction' files produced by the earlier STAR-Aligner alignment step. It produces files of candidate fusion regions.
 
 ## What inputs are required for this app to run?
 * The DNA Nexus file ID of a junction file, produced by STAR-Aligner
